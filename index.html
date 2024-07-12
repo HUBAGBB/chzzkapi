@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chzzk API Proxy</title>
+</head>
+<body>
+    <h1>Chzzk API Proxy</h1>
+    <div id="result"></div>
+
+    <script>
+        // URL에서 streamerId 파라미터 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const streamerId = urlParams.get('streamerId');
+
+        if (streamerId) {
+            fetch(`https://api.chzzk.naver.com/service/v1/channels/${streamerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data);
+                })
+                .catch(error => {
+                    document.getElementById('result').textContent = 'Error: ' + error.message;
+                });
+        } else {
+            document.getElementById('result').textContent = 'No streamerId provided';
+        }
+    </script>
+</body>
+</html>
